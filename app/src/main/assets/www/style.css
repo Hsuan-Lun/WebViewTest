@@ -51,12 +51,12 @@ body {
     vertical-align: middle;
 }
 
-#inputclickbutton {
+#inputclickbutton, #clearInfo, #showFieldBtn{
     background-color: #5599FF;
     border: 1px;
     outline: none;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px 10px;
     font-size: 16px;
     border-radius: 5px;
@@ -75,23 +75,13 @@ body {
     vertical-align: middle;
 }
 
-.inputinfo:nth-child(3) {
-    margin-left: 0px;
+#showField {
+    margin-top: 20px;
 }
 
-.wrapper {
-    position: relative;
-    width: 174px;
-    margin-bottom: 20px;
-}
-
-.toggler-ico {
-    border: none;
-    background: none;
-    padding: 0;
-    width: 15px;
-
-    position: absolute;
-    right: 5px;
-    top: 5px;
+.showitem {
+    cursor: pointer ;
+    width: 200px;
+    height: 30px;
+    color: #aa3350;
 }

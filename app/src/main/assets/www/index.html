@@ -5,7 +5,10 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="style.css">
+	<link href="./toastr.css" rel="stylesheet" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="./toastr.js"></script>
 	<script src="./app.js"></script>
 	<script>helloVicky()</script>
 </head>
@@ -20,21 +23,21 @@
   		<h3>來吧! 小夥伴</h3>
 
   		<div class="inputinfo">
-  			<span>名稱</span>
+  			<span style="font-size:16px;">名稱</span>
   			<div><input type="text" id="field" placeholder="請輸入名稱" height="20px"></div>
   		</div>
 
   		<div class="inputinfo">
-  			<span>帳號</span>
+  			<span style="font-size:16px;">帳號</span>
   			<div><input type="account" id="account" placeholder="請輸入帳號" height="20px"></div>
   		</div>
 
   		<div class="inputinfo">
-  			<span>密碼</span>
-			<div class="wrapper">
-				<input type="password" id="password" placeholder="請輸入密碼">
-				<button id="toggleBtn" class="glyphicon glyphicon-eye-open toggler-ico" type="button">&nbsp;</button>
-			</div>
+  			<span style="font-size:16px;">密碼</span>
+  			<div>
+  				<input type="password" id="password" placeholder="請輸入密碼">
+  				<input onclick="toggler(this,password)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
+  			</div>
 			<!--
   			<span><input type="password" id="password" placeholder="請輸入密碼" height="20px"></span>
 			<input type="image" src="./res/eye.png"  alt="" id="showPW1" onclick="switchPW1();" height="20px">
@@ -43,27 +46,31 @@
   		</div>
 
   		<div class="inputinfo">
-  			<span>確認密碼</span>
-			<div class="wrapper">
-				<input type="password" id="password_confirm" placeholder="請再次輸入密碼">
-				<button id="toggleBtn" class="glyphicon glyphicon-eye-open toggler-ico" type="button">&nbsp;</button>
-			</div>
+  			<span style="font-size:16px;">確認密碼</span>
+  			<div>
+  				<input type="password" id="password_confirm" placeholder="請再次輸入密碼">
+  				<input onclick="toggler(this,password_confirm)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
+  			</div>
 			<!--
 			<div><input type="password" id="password_confirm" placeholder="請再次輸入密碼" height="20px"></div>
 			<img src="./res/eye.png" height="20px" width="20px">
 			-->
   		</div>
   		<div>
-			<button id="inputclickbutton" onclick="addInfo()">確認新增</button>
+  			<span><button id="clearInfo" onclick="clearInputInfo(true)">重新填寫</button></span>
+			<span><button id="inputclickbutton" onclick="addInfo()">確認新增</button></span>
   		</div>
 	</div>
 
 	<div id="search" class="tabcontent">
-  		<h3>尋找</h3>
+		<button id="showFieldBtn" onclick="parseFIELD()">列出所有</button>
+		<div id="showField"></div>
 	</div>
 
 	<div id="util" class="tabcontent">
   		<h3>修改</h3>
 	</div>
+
+
 </body>
 </html>
