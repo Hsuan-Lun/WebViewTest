@@ -1,25 +1,15 @@
 var FIELD, ACCOUNT, PASSWORD;
 
-toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-center",
-    "preventDuplicates": false,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
 
 function helloVicky (){
 	//alert("Hi Vicky!");
+	toastr.options = {
+		"positionClass": "toast-top-center",
+		"showDuration": "300",
+    	"hideDuration": "500",
+    	"timeOut": "1000",
+    	"extendedTimeOut": "500",
+	} 
     toastr.info("Welcome Vicky!");
 }
 
@@ -44,7 +34,9 @@ function addInfo(){
     password = document.getElementById("password").value ;
     password_confirm = document.getElementById("password_confirm").value ;
     if (password !== password_confirm){
-        alert("密碼確認過程有誤 !");
+        //alert("密碼確認過程有誤 !");
+        toastr.options = {"positionClass":"toast-bottom-center"};
+        toastr.error("密碼確認過程有誤 !").css("font-size","16px");
     }else{
 
         if (localStorage.getItem("FIELD")==undefined){
@@ -64,18 +56,23 @@ function addInfo(){
         localStorage.setItem('ACCOUNT',ACCOUNT);
         localStorage.setItem('PASSWORD',PASSWORD);
 
-        alert("Save Complete!");
-        clearInputInfo();
+        //alert("Save Complete!");
+        toastr.options = {"positionClass":"toast-bottom-center"};
+        toastr.success("Save Complete!").css("font-size","16px");
+        clearInputInfo(false);
     }
 
 }
 
 function clearInputInfo(hasNotice){
-    if(hasNotice===undefined){let hasNotice = false; let r = true;}
+    if(hasNotice===undefined){let hasNotice = false;}
 
     if (hasNotice){
-        r = confirm("確定要清除填寫內容 ?!");
+        var r = confirm("確定要清除填寫內容 ?!");
+    }else{
+    	var r = true;
     }
+
     if(r===true) {
         document.getElementById("field").value = "";
         document.getElementById("account").value = "";
@@ -101,13 +98,30 @@ function parseFIELD(){
     let txt = localStorage.getItem("FIELD"); //typeof a is string
 	let array = txt.split(","); //typeof array is object
     let a = document.getElementById("showField");
-    for(let i=1;i<array.length;i++){
+    for(let i=0;i<array.length;i++){
         input = input + "<li class='showitem' id='item" + i + "' onclick='returnData(this)'>" + array[i] + "</li>" ;
     }
     a.innerHTML = input ;
 }
 
 function returnData(e){
+	toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-buttom-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+	}
     //let str = "Don't push " + e.id ;
     //toastr.info(str);
     field = localStorage.getItem("FIELD");
@@ -120,5 +134,10 @@ function returnData(e){
     let str = "<span font-size:'16px'>名稱: </span><span margin-top='0px'>"+ FIELD[ind]+ "</span><br>" +
              "<span font-size:'16px'>帳號: </span><span margin-top='0px'>"+ ACCOUNT[ind]+ "</span><br>" +
              "<span font-size:'16px'>密碼: </span><span margin-top='0px'>"+PASSWORD[ind]+"</span>";
-    toastr.info(str).css("width","400px");
+    toastr.info(str).css("font-size","16px");
+}
+
+
+function underconstruction(){
+	toastr.info("還沒好唷~再等等").css("font-size","20px");
 }
