@@ -7,6 +7,7 @@ html {
 body {
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 20px;
+    color: midnightblue;
 }
 
 /* Style the tab */
@@ -51,7 +52,7 @@ body {
     vertical-align: middle;
 }
 
-#inputclickbutton, #clearInfo, #showFieldBtn{
+#addInfoBtn, #clearInfo, #showFieldBtn, #clearStorageBtn{
     background-color: #5599FF;
     border: 1px;
     outline: none;
@@ -65,7 +66,7 @@ body {
     vertical-align: middle;
 }
 
-#inputclickbutton:hover {
+#addInfoBtn:hover {
     background-color: #dcb5ff;
 }
 
@@ -83,5 +84,5 @@ body {
     cursor: pointer ;
     width: 200px;
     height: 30px;
-    color: #aa3350;
+    color: midnightblue;
 }

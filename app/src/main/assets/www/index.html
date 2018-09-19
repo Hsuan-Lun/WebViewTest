@@ -10,6 +10,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="./toastr.js"></script>
 	<script src="./app.js"></script>
+	<script src="./swipeUtils.js"></script>
 </head>
 <body>
 	<div class="tab">
@@ -34,8 +35,8 @@
   		<div class="inputinfo">
   			<span style="font-size:16px;">密碼</span>
   			<div>
-  				<input type="password" id="password" placeholder="請輸入密碼">
-  				<input onclick="toggler(this,password)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
+  				<input type="password" id="inputPW" placeholder="請輸入密碼">
+  				<input onclick="toggler(this,inputPW)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
   			</div>
 			<!--
   			<span><input type="password" id="password" placeholder="請輸入密碼" height="20px"></span>
@@ -47,8 +48,8 @@
   		<div class="inputinfo">
   			<span style="font-size:16px;">確認密碼</span>
   			<div>
-  				<input type="password" id="password_confirm" placeholder="請再次輸入密碼">
-  				<input onclick="toggler(this,password_confirm)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
+  				<input type="password" id="inputPW_confirm" placeholder="請再次輸入密碼">
+  				<input onclick="toggler(this,inputPW_confirm)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
   			</div>
 			<!--
 			<div><input type="password" id="password_confirm" placeholder="請再次輸入密碼" height="20px"></div>
@@ -57,7 +58,7 @@
   		</div>
   		<div>
   			<span><button id="clearInfo" onclick="clearInputInfo(true)">清除表單</button></span>
-			<span><button id="inputclickbutton" onclick="addInfo()">確認新增</button></span>
+			<span><button id="addInfoBtn" onclick="addInfo()">確認新增</button></span>
   		</div>
 	</div>
 
@@ -67,7 +68,8 @@
 	</div>
 
 	<div id="util" class="tabcontent">
-  		<p style="font-size: 16px,onclick='underconstruction()';">修改</p>
+		<button id="clearStorageBtn" onclick="clearStorage()">放棄治療</button>
+		<span style="font-size: 8px; vertical-align: bottom;">清除所有資料...慎用!!</span>
 	</div>
 
 <script>helloVicky()</script>
