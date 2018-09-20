@@ -52,7 +52,7 @@ body {
     vertical-align: middle;
 }
 
-#addInfoBtn, #clearInfo, #showFieldBtn, #clearStorageBtn{
+#addInfoBtn, #clearInfo, #showFieldBtn, #clearStorageBtn, #clearStorage_btn-toastr{
     background-color: #5599FF;
     border: 1px;
     outline: none;
@@ -85,4 +85,17 @@ body {
     width: 200px;
     height: 30px;
     color: midnightblue;
+}
+
+.expandableitemhead {
+    margin-bottom: 0px;
+    max-width: 400px;
+    cursor: pointer;
+}
+
+.expandableitem {
+    margin-top: 0px; 
+    background-color: aliceblue;
+    border-radius:5px;
+    max-width:400px; 
 }
