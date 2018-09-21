@@ -4,27 +4,29 @@ var FIELD, ACCOUNT, PASSWORD;
 function helloVicky (){
 	//alert("Hi Vicky!");
 	toastr.options = {
-		"positionClass": "toast-top-center",
-		"showDuration": "300",
-    	"hideDuration": "500",
+		"positionClass": "toast-center",
+		"showDuration": "500",
+    	"hideDuration": "100",
     	"timeOut": "1000",
     	"extendedTimeOut": "500",
 	} 
     toastr.info("Welcome Vicky!");
 }
 
-function openTab(evt, cityName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
+function openTab(tabname) {
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace("active", "");
     }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
+    document.getElementById(tabname).style.display = "block";
+    tablinks[checkActivate().indexOf(true)].className += " active" ;
+
+    //document.getElementById(tabname).className += " active";
+    //evt.currentTarget.className += " active";
 }
 
 function addInfo(){
@@ -34,16 +36,13 @@ function addInfo(){
         account = document.getElementById("account").value;
         password = document.getElementById("inputPW").value;
         password_confirm = document.getElementById("inputPW_confirm").value;
-        if (password !== password_confirm) {
-            //alert("密碼確認過程有誤 !");
-            toastr.options = {"positionClass": "toast-bottom-center"};
-            toastr.error("密碼確認過程有誤 !").css("font-size", "16px");
-        } else {
-
+        if (password_confirm_fcn()) {
             if (localStorage.getItem("FIELD") == undefined) {
                 FIELD = [field];
                 ACCOUNT = [account];
                 PASSWORD = [password];
+                save2localStorage(FIELD,ACCOUNT,PASSWORD);
+                
             } else {
                 if (!checkDuplicatedField()) {
                     FIELD = [field];
@@ -52,15 +51,7 @@ function addInfo(){
                     FIELD.unshift(localStorage.getItem("FIELD"));
                     ACCOUNT.unshift(localStorage.getItem("ACCOUNT"));
                     PASSWORD.unshift(localStorage.getItem("PASSWORD"));
-
-                    localStorage.setItem('FIELD', FIELD);
-                    localStorage.setItem('ACCOUNT', ACCOUNT);
-                    localStorage.setItem('PASSWORD', PASSWORD);
-
-                    //alert("Save Complete!");
-                    toastr.options = {"positionClass": "toast-bottom-center"};
-                    toastr.success("Save Complete!").css("font-size", "16px");
-                    clearInputInfo(false);
+                    save2localStorage(FIELD,ACCOUNT,PASSWORD);
                 }
             }
         }
@@ -70,10 +61,37 @@ function addInfo(){
     }
 }
 
+function password_confirm_fcn(){
+    let password = document.getElementById("inputPW").value;
+    let password_confirm = document.getElementById("inputPW_confirm").value;
+    let isSame = password === password_confirm ;
+    if (!isSame) {
+        //alert("密碼確認過程有誤 !");
+        toastr.options = {"positionClass": "toast-bottom-center"};
+        toastr.error("密碼確認過程有誤 !").css("font-size", "16px");
+    }
+    return isSame;
+}
+
+
+function save2localStorage(FIELD,ACCOUNT,PASSWORD){
+    localStorage.setItem('FIELD', FIELD);
+    localStorage.setItem('ACCOUNT', ACCOUNT);
+    localStorage.setItem('PASSWORD', PASSWORD);
+    toastr.options = {"positionClass": "toast-bottom-center"};
+    toastr.success("Save Complete!").css("font-size", "16px");
+    clearInputInfo(false);
+    if(document.getElementById("showFieldBtn").innerText==="收起清單"){
+        document.getElementById("showFieldBtn").innerText="列出所有";
+    }
+    parseFIELD();
+}
+
+
 function checkDuplicatedField(){
-    FIELD = localStorage.getItem("FIELD");
+    let FIELD = localStorage.getItem("FIELD");
     let field = document.getElementById("field").value ;
-    let ind = FIELD.toLowerCase().split(",").indexOf(field);
+    let ind = FIELD.toLowerCase().split(",").indexOf(field.toLowerCase());
     if (ind<0){
         return false;
     }else{
@@ -106,23 +124,15 @@ function clearInputInfo(hasNotice){
 
 function checkInputInfo(istoRemove){
     if(istoRemove) {
-        if (document.getElementById("field").value === "" &&
+        return !(document.getElementById("field").value === "" &&
             document.getElementById("account").value === "" &&
             document.getElementById("inputPW").value === "" &&
-            document.getElementById("inputPW_confirm").value === "") {
-            return false;
-        } else {
-            return true;
-        }
+            document.getElementById("inputPW_confirm").value === "");
     }else{
-        if (document.getElementById("field").value === "" ||
+        return !(document.getElementById("field").value === "" ||
             document.getElementById("account").value === "" ||
             document.getElementById("inputPW").value === "" ||
-            document.getElementById("inputPW_confirm").value === "") {
-            return false;
-        } else {
-            return true;
-        }
+            document.getElementById("inputPW_confirm").value === "");
     }
 }
 
@@ -142,19 +152,48 @@ function toggler(e,idName) {
 function parseFIELD(){
     if(document.getElementById("showFieldBtn").innerText==="列出所有") {
         let input = "";
-        let txt = localStorage.getItem("FIELD"); //typeof a is string
-        let array = txt.split(","); //typeof array is object
-        let a = document.getElementById("showField");
-        for (let i = 0; i < array.length; i++) {
-            input = input + "<li class='showitem' id='item" + i + "' onclick='returnData(this)'>" + array[i] + "</li>";
+        if (localStorage.getItem("FIELD")===null){
+            toastr.info("資料庫沒東西唷!!");
+        }else {
+            let field = localStorage.getItem("FIELD").split(","); //typeof field is object
+            let account = localStorage.getItem("ACCOUNT").split(",");
+            let password = localStorage.getItem("PASSWORD").split(",");
+            for (let i = 0; i < field.length; i++) {
+                input = input + "<p class='expandableitemhead' onclick='expandItem("+i+")' onmousedown='startTouch("+i+")' onmouseleave='resetTouch("+i+")'>"+ field[i] +"</p>"+
+                "<ul id=item"+i+" class='expandableitem' style='display: none;'>"+
+                "<li>account: " + account[i] + "</li>" +
+                "<li>password: " + password[i] + "</li>" +
+                "</ul>";
+            }
+
+
+/*
+            for (let i = 0; i < array.length; i++) {
+                input = input + "<li class='showitem' id='item" + i + "' onclick='returnData(this)'>" + array[i] + "</li>";
+            }
+            input = input + "</ul>";
+*/
+            document.getElementById("showField").innerHTML = input;
+            document.getElementById("showFieldBtn").innerText = "收起清單";
         }
-        a.innerHTML = input;
-        document.getElementById("showFieldBtn").innerText="收起清單";
     }else{
         document.getElementById("showField").innerHTML = "";
         document.getElementById("showFieldBtn").innerText="列出所有";
     }
 }
+
+function expandItem(num){
+	let name = "item"+num ;
+	if(document.getElementById(name).style.display==="") {
+        document.getElementById(name).style.display = "none";
+    }else{
+        document.getElementById(name).style.display="";
+        //setTimeout(function(){ alert("Hello"); }, 3000);
+        setTimeout(function(){expandItem(num);},2500);
+    }
+}
+
+
 
 function returnData(itemhandle){
 	toastr.options = {
@@ -191,5 +230,79 @@ function returnData(itemhandle){
 
 
 function clearStorage(){
-	toastr.warning("確定放棄治療?!")
+    let r = confirm("確定要清除所有儲存內容 ?!");
+    if (r===true) {
+        localStorage.removeItem('FIELD');
+        localStorage.removeItem('ACCOUNT');
+        localStorage.removeItem('PASSWORD');
+    }
+    /*
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": true,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 0,
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    }
+    toastr.warning('確定放棄治療?! <button type="button" class="btn clear" onclick="removeDB()">YES</button>' +
+        '<button type="button" class="btn clear" onclick="">NO</button>');
+        */
+}
+
+function modifySelectedStorage(num){
+	FIELD = getFIELD();
+	ACCOUNT = getACCOUNT();
+	PASSWORD = getPASSWORD();
+	let r = confirm("Modify"+" "+FIELD[num]+"?");
+	if(r===true){
+	    document.getElementById("dialog").style.display = "";
+        $( function() {
+            $( "#dialog" ).dialog();
+        } );
+	}
+}
+
+function deleteSelectedStorage(num){
+	FIELD = getFIELD();
+	ACCOUNT = getACCOUNT();
+	PASSWORD = getPASSWORD();
+	let r = confirm("Delete"+" "+FIELD[num]+"?");
+	if(r===true){
+		FIELD.splice(num,1);
+		ACCOUNT.splice(num,1);
+		PASSWORD.splice(num,1);
+		localStorage.setItem("FIELD",FIELD);
+		localStorage.setItem("ACCOUNT",ACCOUNT);
+		localStorage.setItem("PASSWORD",PASSWORD);
+	}
+}
+
+
+function getFIELD(){
+	let field = localStorage.getItem("FIELD");
+	FIELD = field.split(",");
+	return FIELD;
+}
+
+function getACCOUNT(){
+	let account = localStorage.getItem("ACCOUNT");
+	ACCOUNT = account.split(",");
+	return ACCOUNT;
+}
+
+function getPASSWORD(){
+	let password = localStorage.getItem("PASSWORD");
+	PASSWORD = password.split(",");
+	return PASSWORD;
 }

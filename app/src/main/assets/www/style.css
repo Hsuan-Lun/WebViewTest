@@ -17,6 +17,13 @@ body {
     background-color: #d2e9ff;
 }
 
+#dialog {
+    display: none;
+    overflow: hidden;
+    border: 0px solid #ccc;
+    background-color: #d2e9ff;
+}
+
 /* Style the buttons inside the tab */
 .tab button {
     background-color: inherit;
@@ -52,7 +59,7 @@ body {
     vertical-align: middle;
 }
 
-#addInfoBtn, #clearInfo, #showFieldBtn, #clearStorageBtn{
+#addInfoBtn, #clearInfo, #showFieldBtn, #clearStorageBtn, #clearStorage_btn-toastr{
     background-color: #5599FF;
     border: 1px;
     outline: none;
@@ -85,4 +92,35 @@ body {
     width: 200px;
     height: 30px;
     color: midnightblue;
+}
+
+.expandableitemhead {
+    margin-bottom: 0px;
+    max-width: 400px;
+    cursor: pointer;
+}
+
+.expandableitem {
+    margin-top: 0px; 
+    background-color: aliceblue;
+    border-radius:5px;
+    max-width:400px; 
+}
+
+.toastrBtn {
+    background-color: #3276b1;
+    color: aliceblue;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.toast-blue {
+    background-color: #3276b1;
+    color: aliceblue;
 }

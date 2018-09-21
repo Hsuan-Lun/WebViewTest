@@ -2,21 +2,23 @@
 <html>
 <head>
 	<title> Vicky's Wonderland </title>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta charset="utf-8">
 	<link href="./toastr.css" rel="stylesheet" />
 	<link rel="stylesheet" href="style.css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="./toastr.js"></script>
 	<script src="./app.js"></script>
-	<script src="./swipeUtils.js"></script>
+	<script src="./touchUtils.js"></script>
 </head>
 <body>
 	<div class="tab">
-  		<button class="tablinks" onclick="openTab(event, 'add')">新來的喔</button>
-  		<button class="tablinks" onclick="openTab(event, 'search')">來抓我呀</button>
-  		<button class="tablinks" onclick="openTab(event, 'util')">喔齁齁齁</button>
+  		<button class="tablinks" id="tab0" onclick="openTab('add')">新來的喔</button>
+  		<button class="tablinks" id="tab1" onclick="openTab('search')">來抓我呀</button>
+  		<button class="tablinks" id="tab2" onclick="openTab('util')">喔齁齁齁</button>
 	</div>
 
 	<div id="add" class="tabcontent">
@@ -24,7 +26,7 @@
 
   		<div class="inputinfo">
   			<span style="font-size:16px;">名稱</span>
-  			<div><input type="text" id="field" placeholder="請輸入名稱" height="20px"></div>
+  			<div><input type="text" id="field" placeholder="請輸入名稱" height="20px" onchange="checkDuplicatedField()"></div>
   		</div>
 
   		<div class="inputinfo">
@@ -48,7 +50,7 @@
   		<div class="inputinfo">
   			<span style="font-size:16px;">確認密碼</span>
   			<div>
-  				<input type="password" id="inputPW_confirm" placeholder="請再次輸入密碼">
+  				<input type="password" id="inputPW_confirm" placeholder="請再次輸入密碼" onchange="password_confirm_fcn()">
   				<input onclick="toggler(this,inputPW_confirm)" type="image" src="./res/eye.png" height="10px" width="15px" class="showPW">
   			</div>
 			<!--
@@ -69,7 +71,25 @@
 
 	<div id="util" class="tabcontent">
 		<button id="clearStorageBtn" onclick="clearStorage()">放棄治療</button>
-		<span style="font-size: 8px; vertical-align: bottom;">清除所有資料...慎用!!</span>
+		<span style="font-size: 8px; vertical-align: bottom;">清除所有資料...慎用!!</span><br>
+		<button onclick="testPrompt()">Test</button>
+	</div>
+	<script>
+		function testPrompt(){
+            let a = prompt("Enter Your Name!");
+            alert("Hello "+a);
+		}
+	</script>
+
+
+	<div id="dialog" title="資料修改">
+		<label>名稱</label>
+		<input type="text" id="modify1"><br/>
+		<label>帳號</label>
+		<input type="text" id="modify2"><br/>
+		<label>密碼</label>
+		<input type="text" id="modify3"><br/>
+		<button>確認修改</button>
 	</div>
 
 <script>helloVicky()</script>
