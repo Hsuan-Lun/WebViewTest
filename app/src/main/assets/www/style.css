@@ -18,6 +18,7 @@ body {
 }
 
 #dialog {
+    font-family: 'Noto Sans TC', sans-serif;
     display: none;
     overflow: hidden;
     border: 0px solid #ccc;
@@ -95,9 +96,13 @@ body {
 }
 
 .expandableitemhead {
-    margin-bottom: 0px;
+    background-color:transparent;
+    margin-bottom: 10px;
     max-width: 400px;
     cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 20px;
 }
 
 .expandableitem {

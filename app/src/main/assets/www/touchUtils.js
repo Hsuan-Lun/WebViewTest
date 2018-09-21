@@ -3,9 +3,10 @@ var offset = window.clientX * 0.6;
 var tabcontentidname = ["add", "search", "util"];
 var timer;
 var isTouch = false;
-var delay = 1500; // how much long u have to hold click in MS
+var delay = 200; // how much long u have to hold click in MS
+var temp="";
 
-//onmousedown="func()"
+//onmousedown="startTouch()"
 function startTouch(num){
    isTouch = true;
    timer = setTimeout(function(){ makeChange(num);},delay);
@@ -34,21 +35,26 @@ function makeChange(num){
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut",
         "tapToDismiss": false
-    };
+    }
         toastr.info("<br/><button type='button' class='toastrBtn' id='toastrBtn_modify'>修改</button><button type='button' class='toastrBtn' id='toastrBtn_delete'>刪除</button>", "你想對我幹嘛??");
+    }else{
+        expandItem(num);
     }
 }
 
-//onmouseup="revert()"
+//onmouseup="resetTouch()"
 function resetTouch(){
-   isTouch =false;
+    isTouch =false;
 }
 
 
 function toastrBtnClick(idname,num){
+    //temp = event.target.onclick ;
+    //event.target.onclick = "";
     if(idname==="toastrBtn_modify"){
         modifySelectedStorage(num);
         toastr.remove();
+        //event.target.onclick = temp ;
     }
     if(idname==="toastrBtn_delete"){
         deleteSelectedStorage(num);

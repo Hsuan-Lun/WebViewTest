@@ -152,18 +152,27 @@ function toggler(e,idName) {
 function parseFIELD(){
     if(document.getElementById("showFieldBtn").innerText==="列出所有") {
         let input = "";
-        if (localStorage.getItem("FIELD")===null){
+        if (localStorage.getItem("FIELD")===null | localStorage.getItem("FIELD")===""){
             toastr.info("資料庫沒東西唷!!");
         }else {
             let field = localStorage.getItem("FIELD").split(","); //typeof field is object
             let account = localStorage.getItem("ACCOUNT").split(",");
             let password = localStorage.getItem("PASSWORD").split(",");
+            /*
             for (let i = 0; i < field.length; i++) {
-                input = input + "<p class='expandableitemhead' onclick='expandItem("+i+")' onmousedown='startTouch("+i+")' onmouseleave='resetTouch("+i+")'>"+ field[i] +"</p>"+
+                input = input + "<button class='expandableitemhead' onclick='expandItem("+i+")' onmousedown='startTouch("+i+")' onmouseup='resetTouch("+i+")'>"+ field[i] +"</button>"+
                 "<ul id=item"+i+" class='expandableitem' style='display: none;'>"+
                 "<li>account: " + account[i] + "</li>" +
                 "<li>password: " + password[i] + "</li>" +
-                "</ul>";
+                "</ul><br>";
+            }
+            */
+            for (let i = 0; i < field.length; i++) {
+                input = input + "<button class='expandableitemhead' onmousedown='startTouch("+i+")' onmouseup='resetTouch("+i+")'>"+ field[i] +"</button><br>"+
+                    "<ul id=item"+i+" class='expandableitem' style='display: none;'>"+
+                    "<li>account: " + account[i] + "</li>" +
+                    "<li>password: " + password[i] + "</li>" +
+                    "</ul>";
             }
 
 
@@ -270,6 +279,7 @@ function modifySelectedStorage(num){
         $( function() {
             $( "#dialog" ).dialog();
         } );
+        parseFIELD();
 	}
 }
 
@@ -285,6 +295,7 @@ function deleteSelectedStorage(num){
 		localStorage.setItem("FIELD",FIELD);
 		localStorage.setItem("ACCOUNT",ACCOUNT);
 		localStorage.setItem("PASSWORD",PASSWORD);
+        parseFIELD();
 	}
 }
 
