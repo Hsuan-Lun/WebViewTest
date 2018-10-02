@@ -275,12 +275,38 @@ function modifySelectedStorage(num){
 	PASSWORD = getPASSWORD();
 	let r = confirm("Modify"+" "+FIELD[num]+"?");
 	if(r===true){
-	    document.getElementById("dialog").style.display = "";
         $( function() {
             $( "#dialog" ).dialog();
         } );
+	    document.getElementById("dialog").style.display = "";
+        document.getElementById("dialog").title="修改: "+FIELD[num];
+        document.getElementById("labelaccount").innerText="帳號: ("+ ACCOUNT[num] + ")";
+        document.getElementById("labelpassword").innerText="密碼: ("+ PASSWORD[num] + ")";
+        document.getElementById("modifyaccount").placeholder= ACCOUNT[num];
+        document.getElementById("modifypassword").placeholder= PASSWORD[num];
+        document.getElementById("confirm_modify_Btn").onclick = function(){confirm_modify(num)};
         parseFIELD();
 	}
+}
+
+function confirm_modify(num){
+    ACCOUNT[num] = document.getElementById("modifyaccount").value ;
+    PASSWORD[num] = document.getElementById("modifypassword").value ;
+    localStorage.setItem("ACCOUNT",ACCOUNT) ;
+    localStorage.setItem("PASSWORD",PASSWORD) ;
+    document.getElementById("dialog").style.display = "none";
+    toastr.info("Modified !");
+    resetdialog();
+    parseFIELD();
+}
+
+
+function resetdialog(){
+    document.getElementById("labelaccount").innerText="帳號";
+    document.getElementById("labelpassword").innerText="密碼";
+    document.getElementById("modifyaccount").placeholder= "";
+    document.getElementById("modifypassword").placeholder= "";
+    document.getElementById("confirm_modify_Btn").onclick = function(){confirm_modify()};
 }
 
 function deleteSelectedStorage(num){

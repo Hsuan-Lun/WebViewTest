@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         wv.loadUrl("file:///android_asset/www/index.html");
         //wv.loadUrl("http://www.choisfit-taiwan.com/");
         //wv.setWebViewClient(new MyWebViewClient());
+        wv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
         wv.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress){

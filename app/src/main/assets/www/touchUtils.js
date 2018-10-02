@@ -90,7 +90,7 @@ window.addEventListener("touchend",function(event){
         if(end < start - offset ){
             let cc = checkActivate();
             //a right -> left swipe
-            let ind = cc.indexOf(true);
+            let ind = cc.indexOf(true)
             ind = ind - 1;
             if (ind<1){ind=1;}
             console.log(ind);

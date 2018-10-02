@@ -74,6 +74,7 @@
 		<button id="clearStorageBtn" onclick="clearStorage()">放棄治療</button>
 		<span style="font-size: 8px; vertical-align: bottom;">清除所有資料...慎用!!</span><br>
 		<button onclick="testPrompt()">Test</button>
+        <canvas id="pic1"></canvas>
 	</div>
 	<script>
 		function testPrompt(){
@@ -83,16 +84,22 @@
             }
 		}
 	</script>
+    <script>
+        var height = 100 ;
+        var width = 50 ;
+        var canvas = document.getElementById("pic1");
+        var ctx = canvas.getContext("2D");
+        var myImageData = ctx.createImageData(width, height);
+
+    </script>
 
 
 	<div id="dialog" title="資料修改">
-		<label>名稱</label>
-		<input type="text" id="modify1"><br/>
-		<label>帳號</label>
-		<input type="text" id="modify2"><br/>
-		<label>密碼</label>
-		<input type="text" id="modify3"><br/>
-		<button onclick="Alert('YES!')">確認修改</button>
+		<label id="labelaccount">帳號</label>
+		<input type="text" id="modifyaccount"><br/>
+		<label id="labelpassword">密碼</label>
+		<input type="text" id="modifypassword"><br/>
+		<button onclick="confirm_modify()" id="confirm_modify_Btn">確認修改</button>
 	</div>
 
 <script>helloVicky()</script>
