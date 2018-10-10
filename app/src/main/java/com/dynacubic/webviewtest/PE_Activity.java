@@ -19,7 +19,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class PE_Activity extends AppCompatActivity {
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("您將要離開理學檢查頁面")
+                .setMessage("未儲存的資料將清除，確定離開? ")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         wv.getSettings().setJavaScriptEnabled(true);
         wv.getSettings().setUseWideViewPort(true);
         wv.getSettings().setLoadWithOverviewMode(true);
-        wv.getSettings().setSupportZoom(false);
-        wv.getSettings().setBuiltInZoomControls(false);
-        wv.getSettings().setDisplayZoomControls(true);
+        wv.getSettings().setSupportZoom(true);
+        wv.getSettings().setBuiltInZoomControls(true);
+        wv.getSettings().setDisplayZoomControls(false);
         wv.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         wv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         wv.getSettings().setAllowFileAccess(true);
         wv.getSettings().setDomStorageEnabled(true);
-        wv.loadUrl("file:///android_asset/www/index.html");
+        wv.loadUrl("file:///android_asset/www/PE_Exam.html");
         //wv.loadUrl("http://www.choisfit-taiwan.com/");
         //wv.setWebViewClient(new MyWebViewClient());
         wv.setOnLongClickListener(new View.OnLongClickListener() {
@@ -60,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result){
-                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(PE_Activity.this);
                 b.setTitle("Alert");
                 b.setMessage(message);
                 b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -77,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(PE_Activity.this);
                 b.setTitle("Confirm");
                 b.setMessage(message);
                 b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -98,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
-                final View v = View.inflate(MainActivity.this, R.layout.prompt_dialog, null);
+                final View v = View.inflate(PE_Activity.this, R.layout.prompt_dialog, null);
                 ((TextView) v.findViewById(R.id.prompt_message_text)).setText(message);
                 ((EditText) v.findViewById(R.id.prompt_input_field)).setText(defaultValue);
-                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(PE_Activity.this);
                 b.setTitle("Prompt");
                 b.setView(v);
                 b.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -131,7 +149,10 @@ public class MainActivity extends AppCompatActivity {
         }
         });
         */
+
     }
+
+
 /*
     @Override
     public void onBackPressed() {

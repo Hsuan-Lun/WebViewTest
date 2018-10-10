@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<head>
+	<title> Physical Examination </title>
+	<!--<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+	<!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="./PE_style.css">
+    <script src="./Form_Control.js"></script>
+    <script src="./html2canvas.js"></script>
+    <script src="./jspdf.min.js"></script>
+    <script src="./FileSaver.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+<div class="container">
+<h1>------- 理學檢查 -------</h1>
+<fieldset id="spine">
+    <legend><脊椎排列></legend>
+    <div>
+        <!--<input type="checkbox" id="chk_spine_side_bind">-->
+        <label>額狀面</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_frontal" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_frontal"><label>C曲線</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_frontal"><label>S曲線</label>
+        <span>) &nbsp;</span>
+    </div>
+
+    <div style="margin-top: 5px">
+        <!--<input type="checkbox" id="chk_thoracic">-->
+        <label>胸椎&emsp;</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_thoracic" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_thoracic"><label>過凸</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_thoracic"><label>不足</label>
+        <span>) &nbsp;</span>
+    </div>
+
+    <div style="margin-top: 5px">
+        <!--<input type="checkbox" id="chk_lumbar">-->
+        <label>腰椎&emsp;</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_lumbar" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_lumbar"><label>過凸</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="spine_lumbar"><label>不足</label>
+        <span>) &nbsp;</span>
+    </div>
+</fieldset>
+
+
+<fieldset id="pelvis">
+    <legend><骨盆排列></legend>
+    <div>
+        <!--<input type="checkbox" id="chk_spine_side_bind">-->
+        <label>矢狀面</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_sagittal" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_sagittal"><label>前傾</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_sagittal"><label>後傾</label>
+        <span>) &nbsp;</span>
+    </div>
+
+    <div style="margin-top: 5px">
+        <!--<input type="checkbox" id="chk_thoracic">-->
+        <label>額狀面</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_frontal" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_frontal"><label>向右側抬</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_frontal"><label>向左側抬</label>
+        <span>) &nbsp;</span>
+    </div>
+
+    <div style="margin-top: 5px">
+        <!--<input type="checkbox" id="chk_lumbar">-->
+        <label>橫狀面</label>
+        <span>&nbsp; (</span>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_transverse" checked><label>正常，</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_transverse"><label>向右旋轉</label>
+        <input type="radio" onclick="updateRadioValue(this)" name="pelvis_transverse"><label>向左旋轉</label>
+        <span>) &nbsp;</span>
+    </div>
+</fieldset>
+
+
+<fieldset id="hip_joint">
+    <legend><髖關節></legend>
+    <table>
+        <tr><th class="labelname"></th><th class="column1">左腳</th> <th class="column1">右腳</th></tr>
+        <tr>
+        	<td class="labelname">矢狀面</td>
+        	<td class="column1">
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_left" checked><label>正常，</label>
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_left"><label>前傾</label>
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_left"><label>後傾</label>
+        	</td>
+        	<td class="column1">
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_right" checked><label>正常，</label>
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_right"><label>前傾</label>
+            	<input type="radio" onclick="updateRadioValue(this)" name="hip_joint_right"><label>後傾</label>
+        	</td>
+        </tr>
+        
+    </table>
+</fieldset>
+
+
+<fieldset id="knee_joint">
+    <legend><膝關節></legend>
+    <table>
+        <tr><th class="labelname"></th><th class="column1">左腳</th> <th class="column1">右腳</th></tr>
+        <tr>
+        	<td class="labelname">矢狀面</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_left" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_left"><label>反屈</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_left"><label>過屈</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_right" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_right"><label>反屈</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_sagittal_right"><label>過屈</label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">額狀面</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_left" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_left"><label>內收</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_left"><label>外展</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_right" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_right"><label>內收</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_frontal_right"><label>外展</label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">橫狀面</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_left" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_left"><label>內轉</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_left"><label>外轉</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_right" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_right"><label>內轉</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="knee_transverse_right"><label>外轉</label>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset id="ankle_joint">
+    <legend><足、踝關節></legend>
+    <table>
+        <tr><th class="labelname"></th><th class="column1">左腳</th> <th class="column1">右腳</th></tr>
+        <tr>
+        	<td class="labelname">內/外轉角度</td>
+            <td class="column1">
+                <input type="number" onchange="updateInputValue(this)" name="toe_inout_angle_left" value="0">
+                <label>(度) <span style="color:#808080;font-size:10px;">*負值表內轉</span></label>
+            </td>
+            <td class="column1">
+                <input type="number" onchange="updateInputValue(this)" name="toe_inout_angle_right" value="0">
+                <label>(度) <span style="color:#808080;font-size:10px;">*負值表內轉</span></label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">重複性扭傷</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_left" checked><label>無，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_left"><label>內側</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_left"><label>外側</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_right" checked><label>無，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_right"><label>內側</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="repeat_sprain_right"><label>外側</label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">前足</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_left" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_left"><label>旋前</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_left"><label>旋後</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_right" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_right"><label>旋前</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="forefoot_right"><label>旋後</label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">後足</td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_left" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_left"><label>旋前</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_left"><label>旋後</label>
+            </td>
+            <td class="column1">
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_right" checked><label>正常，</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_right"><label>旋前</label>
+                <input type="radio" onclick="updateRadioValue(this)" name="hindfoot_right"><label>旋後</label>
+            </td>
+        </tr>
+
+        <tr>
+        	<td class="labelname">屈曲</td>
+            <td class="column1">
+            	<div style="display: inline-block;">
+            		<input type="radio" name="ankle_flexion_left" checked><label>正常，</label>
+            	</div>
+            	<div style="display: inline-block;">
+            		<div style="display: block;">
+            			<input type="radio" onclick="updateRadioValue(this)" name="ankle_flexion_left">
+            			<label>背屈受限:</label>
+            			<input type="number" onchange="updateInputValue(this)" name="max_dorsiflexion_angle_left" value="0" style="width: 50px">
+            			<label>(度)</label>
+            		</div>
+            		<div style="display: block;">
+            			<input type="radio" onclick="updateRadioValue(this)" name="ankle_flexion_left">
+            			<label>蹠屈受限:</label>
+            			<input type="number" onchange="updateInputValue(this)" name="max_plantarflexion_angle_left" value="0" style="width: 50px">
+            			<label>(度)</label>
+            		</div>
+            	</div>
+            </td>
+            <td class="column1">
+                <div style="display: inline-block;">
+            		<input type="radio" onclick="updateRadioValue(this)" name="ankle_flexion_right" checked><label>正常，</label>
+            	</div>
+            	<div style="display: inline-block;">
+            		<div style="display: block;">
+            			<input type="radio" onclick="updateRadioValue(this)" name="ankle_flexion_right">
+            			<label>背屈受限:</label>
+            			<input type="number" onchange="updateInputValue(this)" name="max_dorsiflexion_angle_right" value="0" style="width: 50px">
+            			<label>(度)</label>
+            		</div>
+            		<div style="display: block;">
+            			<input type="radio" onclick="updateRadioValue(this)" name="ankle_flexion_right">
+            			<label>蹠屈受限:</label>
+            			<input type="number" onchange="updateInputValue(this)" name="max_plantarflexion_angle_right" value="0" style="width: 50px">
+            			<label>(度)</label>
+            		</div>
+            	</div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset id="lower_symmetry">
+	<legend><下肢對稱性></legend>
+	<div>
+	<label>雙腿長度</label>
+    <span>&nbsp; (</span>
+    <input type="radio" onclick="updateRadioValue(this)" name="footlength_symmetry" checked><label>等長，</label>
+    <input type="radio" onclick="updateRadioValue(this)" name="footlength_symmetry"><label>左長右短，差:&nbsp;</label>
+    <input type="number" onchange="updateInputValue(this)" name="foot_higher_value_left" value="0">
+    <span>公分</span>
+    <input type="radio" onclick="updateRadioValue(this)" name="footlength_symmetry"><label>左短右長，差:&nbsp;</label>
+    <input type="number" onchange="updateInputValue(this)" name="foot_higher_value_right" value="0">
+    <span>公分 &nbsp;)</span>
+</div>
+</fieldset>
+</div>
+
+<div style="display: flex" class="btn_group">
+<div style="display: flex">
+    <button class="btn" onclick="clearForm()">清除</button>
+</div>
+<div style="display: flex">
+    <button class="btn" onclick="saveForm()">儲存</button>
+</div>
+</div>
+
+<script> initialData();</script>
+</body>
+</html>
